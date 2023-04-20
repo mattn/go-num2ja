@@ -1,4 +1,4 @@
-package int2kanji
+package num2ja
 
 import (
 	"log"
