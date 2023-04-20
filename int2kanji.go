@@ -39,14 +39,14 @@ func min(a, b int) int {
 
 func partsIn(rs []rune, i int) bool {
 	for j := i; j < min(i+4, len(rs)); j++ {
-		if rs[i] != '0' {
+		if rs[j] != '0' {
 			return true
 		}
 	}
 	return false
 }
 
-func Int2Kanji(i int64) string {
+func ToKanji(i int64) string {
 	s := fmt.Sprint(i)
 	var buf bytes.Buffer
 	rs := []rune(s)
