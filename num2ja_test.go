@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestSimple(t *testing.T) {
+func TestToKanji(t *testing.T) {
 	type test struct {
 		num  int64
 		want string
@@ -30,6 +30,37 @@ func TestSimple(t *testing.T) {
 	}
 	for _, tt := range tests {
 		got := ToKanji(tt.num)
+		if got != tt.want {
+			log.Fatalf("want %v for %v, but got %v", tt.want, tt.num, got)
+		}
+	}
+}
+
+func TestToHira(t *testing.T) {
+	type test struct {
+		num  int64
+		want string
+	}
+	tests := []test{
+		{num: 1, want: "いち"},
+		{num: 9, want: "きゅう"},
+		{num: 10, want: "じゅう"},
+		{num: 11, want: "じゅういち"},
+		{num: 21, want: "にじゅういち"},
+		{num: 99, want: "きゅうじゅうきゅう"},
+		{num: 100, want: "ひゃく"},
+		{num: 999, want: "きゅうひゃくきゅうじゅうきゅう"},
+		{num: 1000, want: "せん"},
+		{num: 9999, want: "きゅうせんきゅうひゃくきゅうじゅうきゅう"},
+		{num: 10000, want: "いちまん"},
+		{num: 10020, want: "いちまんにじゅう"},
+		{num: 1000020, want: "ひゃくまんにじゅう"},
+		{num: 100000020, want: "いちおくにじゅう"},
+		{num: 100004423, want: "いちおくよんせんよんひゃくにじゅうさん"},
+		{num: 180004423, want: "いちおくはちせんまんよんせんよんひゃくにじゅうさん"},
+	}
+	for _, tt := range tests {
+		got := ToHira(tt.num)
 		if got != tt.want {
 			log.Fatalf("want %v for %v, but got %v", tt.want, tt.num, got)
 		}
